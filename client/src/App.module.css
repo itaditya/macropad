@@ -1,15 +1,30 @@
 .app {
   display: flex;
+  gap: 30px;
   flex-direction: column;
-  align-items: center;
   height: 100vh;
   color: #f1f5f9;
   background-color: #1e293b;
   overflow: hidden;
 }
 
-.heading {
-  text-align: center;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 30px;
+}
+
+.fullscreenBtn {
+  border: none;
+  padding: 0;
+  color: #fff;
+  background-color: #475569;
+  font-size: 3rem;
+}
+
+.fullscreenBtn > svg {
+  display: block;
 }
 
 .macroList {
