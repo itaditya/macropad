@@ -40,7 +40,7 @@ const App: Component = () => {
 
   const handleMacro = async (index: number) => {
     console.log('macro', index);
-    window.navigator.vibrate(50);
+    window.navigator.vibrate(30);
     await fetch(`/api/macro?i=${index}`, {
       method: 'POST',
     });
@@ -48,7 +48,7 @@ const App: Component = () => {
 
   const handleNum = async (index: number) => {
     console.log('num', index);
-    window.navigator.vibrate(50);
+    window.navigator.vibrate(30);
     await fetch(`/api/num?i=${index}`, {
       method: 'POST',
     });
