@@ -53,3 +53,7 @@
   font-size: 2rem;
   color: #fff;
 }
+
+.macroBtn:active {
+  background-color: #334155;
+}
