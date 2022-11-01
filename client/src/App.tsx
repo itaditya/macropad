@@ -35,15 +35,17 @@ const App: Component = () => {
   };
 
   return (
-    <div class={styles.App}>
-      <h2>Macropad</h2>
-      <For each={macros}>
-        {(macro, index) => (
-          <div>
-            <button onClick={[handleClick, index() + 1]}>{macro.name}</button>
-          </div>
-        )}
-      </For>
+    <div class={styles.app}>
+      <h2 class={styles.heading}>Macropad</h2>
+      <ul class={styles.macroList}>
+        <For each={macros}>
+          {(macro, index) => (
+            <li class={styles.macroItem}>
+              <button class={styles.macroBtn} onClick={[handleClick, index() + 1]}>{macro.name}</button>
+            </li>
+          )}
+        </For>
+      </ul>
     </div>
   );
 };
