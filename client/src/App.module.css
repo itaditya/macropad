@@ -36,7 +36,6 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  align-content: stretch;
   gap: 10px;
 }
 
@@ -49,11 +48,39 @@
   border-radius: 4px;
   background-color: #475569;
   display: block;
-  width: 100%;
   font-size: 2rem;
   color: #fff;
 }
 
 .macroBtn:active {
+  background-color: #334155;
+}
+
+.numList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.numItem {
+  display: contents;
+}
+
+.numBtn {
+  border: none;
+  border-radius: 4px;
+  background-color: #475569;
+  display: block;
+  font-size: 2rem;
+  color: #fff;
+}
+
+.numBtn:active {
   background-color: #334155;
 }

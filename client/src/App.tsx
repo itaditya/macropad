@@ -1,4 +1,4 @@
-import { Component, createSignal, For, Show } from 'solid-js';
+import { Component, createSignal, For, Match, Show, Switch } from 'solid-js';
 import styles from './App.module.css';
 
 const macros = [
@@ -22,14 +22,11 @@ const macros = [
   },
 ];
 
-const triggerMacro = (index: number) => {
-  return fetch(`/api/macro?i=${index}`, {
-    method: 'POST',
-  });
-};
+const numList = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, 0, 0];
 
 const App: Component = () => {
   const [isFullscreen, setFullscreen] = createSignal(false);
+  const [mode, setMode] = createSignal('macro');
 
   async function handleFullScreen() {
     if (!isFullscreen()) {
@@ -41,15 +38,33 @@ const App: Component = () => {
     }
   }
 
-  const handleClick = async (index: number) => {
-    console.log('do', index);
-    await triggerMacro(index);
+  const handleMacro = async (index: number) => {
+    console.log('macro', index);
+    await fetch(`/api/macro?i=${index}`, {
+      method: 'POST',
+    });
+  };
+
+  const handleNum = async (index: number) => {
+    console.log('num', index);
+    await fetch(`/api/num?i=${index}`, {
+      method: 'POST',
+    });
+  };
+
+  const handleMode = () => {
+    console.log('toggle mode');
+    setMode((prev) => {
+      return prev === 'macro' ? 'numpad' : 'macro';
+    });
   };
 
   return (
     <div class={styles.app}>
       <header class={styles.header}>
-        <button class={styles.spareBtn}>S</button>
+        <button class={styles.modeBtn} onClick={handleMode}>
+          M
+        </button>
         <h2 class={styles.heading}>Macropad</h2>
         <button class={styles.fullscreenBtn} onClick={handleFullScreen}>
           <svg
@@ -69,20 +84,40 @@ const App: Component = () => {
           </svg>
         </button>
       </header>
-      <ul class={styles.macroList}>
-        <For each={macros}>
-          {(macro, index) => (
-            <li class={styles.macroItem}>
-              <button
-                class={styles.macroBtn}
-                onClick={[handleClick, index() + 1]}
-              >
-                {macro.name}
-              </button>
-            </li>
-          )}
-        </For>
-      </ul>
+      <Switch>
+        <Match when={mode() === 'macro'}>
+          <ul class={styles.macroList}>
+            <For each={macros}>
+              {(macro, index) => (
+                <li class={styles.macroItem}>
+                  <button
+                    class={styles.macroBtn}
+                    onClick={[handleMacro, index() + 1]}
+                  >
+                    {macro.name}
+                  </button>
+                </li>
+              )}
+            </For>
+          </ul>
+        </Match>
+        <Match when={mode() === 'numpad'}>
+          <ul class={styles.numList}>
+            <For each={numList}>
+              {(num, index) => (
+                <li class={styles.numItem}>
+                  <button
+                    class={styles.numBtn}
+                    onClick={[handleNum, num]}
+                  >
+                    {num}
+                  </button>
+                </li>
+              )}
+            </For>
+          </ul>
+        </Match>
+      </Switch>
     </div>
   );
 };

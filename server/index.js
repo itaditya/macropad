@@ -11,14 +11,30 @@ async function macroHandler(context, _req, res) {
     return;
   }
   console.log('run macro', index);
-  const numKey = 102 + index;
+  const numKey = 35 + index;
   await keyboard.type(Key.LeftAlt, numKey);
   res.writeHead(200);
   res.end('macro ran successfully!');
 }
 
+async function numHandler(context, _req, res) {
+  const { i } = context;
+  const index = Number(i);
+  if (typeof index !== 'number' || index < 0 || index > 9) {
+    res.writeHead(500);
+    res.end('index has to be 0-9');
+    return;
+  }
+  console.log('run num', index);
+  const numKey = 102 + index;
+  await keyboard.type(numKey);
+  res.writeHead(200);
+  res.end('macro ran successfully!');
+}
+
 const actionHandlers = new Map([
-  ['macro', macroHandler]
+  ['macro', macroHandler],
+  ['num', numHandler],
 ]);
 
 async function requestListener(req, res) {
